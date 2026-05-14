@@ -155,6 +155,7 @@ hotfix/1.2.1
 - `develop` 是日常开发集成分支。
 - 功能分支从最新 `develop` 创建。
 - 普通功能 PR 合并回 `develop`。
+- 如果希望 PR 合入 `develop` 后自动关闭 Issue，建议把代码托管平台的默认分支设置为 `develop`；否则需要手动关闭 Issue，或等发布分支合入默认分支后再关闭。
 - 发布时从 `develop` 创建 `release/x.y.z`。
 - 发布完成后合并到 `main` 并打 tag，同时回合到 `develop`。
 - 线上紧急问题从 `main` 创建 `hotfix/x.y.z`，修复后合并回 `main` 和 `develop`。

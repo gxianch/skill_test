@@ -21,6 +21,7 @@ hotfix/<version>
 
 - 普通功能、修复、文档、技术任务都从 `develop` 创建分支。
 - 普通 PR 默认合回 `develop`。
+- GitHub 仓库默认分支设置为 `develop`，这样 PR 合入 `develop` 时，`Closes #<issue-number>` 可以自动关闭对应 Issue。
 - `main` 不直接承接日常功能 PR，只用于稳定发布。
 - 发布时从 `develop` 创建 `release/<version>`，验收后合入 `main` 并打 tag，同时回合到 `develop`。
 - 线上紧急修复从 `main` 创建 `hotfix/<version>`，修复后合入 `main` 和 `develop`。
