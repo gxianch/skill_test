@@ -1,6 +1,29 @@
 # Issue 开发流程
 
-本仓库使用 GitHub Issues 管理需求和实现任务。默认流程是一个 issue 一条分支，一个 PR 关闭一个 issue。
+本仓库使用 GitHub Issues 管理需求和实现任务，并采用 Git Flow / `develop` 模式。
+
+默认流程是一个 issue 一条分支，一个 PR 关闭一个 issue。普通功能和修复分支从最新 `develop` 创建，PR 合回 `develop`。`main` 只代表稳定发布线。
+
+## 分支模型
+
+```text
+main        稳定发布分支
+develop     日常集成分支
+  ├── feature/<issue-number>-<short-name>
+  ├── fix/<issue-number>-<short-name>
+  ├── chore/<issue-number>-<short-name>
+  └── docs/<issue-number>-<short-name>
+release/<version>
+hotfix/<version>
+```
+
+规则：
+
+- 普通功能、修复、文档、技术任务都从 `develop` 创建分支。
+- 普通 PR 默认合回 `develop`。
+- `main` 不直接承接日常功能 PR，只用于稳定发布。
+- 发布时从 `develop` 创建 `release/<version>`，验收后合入 `main` 并打 tag，同时回合到 `develop`。
+- 线上紧急修复从 `main` 创建 `hotfix/<version>`，修复后合入 `main` 和 `develop`。
 
 ## 标准流程
 
@@ -9,17 +32,17 @@
    - 确认该 issue 没有未完成 blocker。
    - 不在同一个分支里混做多个无关 issue。
 
-2. 从最新 `main` 创建分支
-   - 切回 `main`。
+2. 从最新 `develop` 创建分支
+   - 切回 `develop`。
    - 拉取远端最新代码。
    - 创建 issue 分支。
 
    示例：
 
    ```bash
-   git switch main
-   git pull --ff-only origin main
-   git switch -c issue-2-app-skeleton
+   git switch develop
+   git pull --ff-only origin develop
+   git switch -c feature/3-permission-onboarding
    ```
 
 3. 按 TDD 实现
@@ -46,22 +69,30 @@
 
 6. 推送并创建 PR
    - 推送当前 issue 分支。
-   - 创建 PR 指向 `main`。
+   - 创建 PR 指向 `develop`。
    - PR 正文写明关闭的 issue、变更摘要和验证结果。
 
    示例：
 
    ```bash
-   git push -u origin issue-2-app-skeleton
-   gh pr create --base main --head issue-2-app-skeleton \
-     --title "Implement menu bar app skeleton" \
-     --body "Closes #2"
+   git push -u origin feature/3-permission-onboarding
+   gh pr create --base develop --head feature/3-permission-onboarding \
+     --title "Add permission onboarding" \
+     --body "Closes #3"
    ```
 
 7. 合并后再开始下一个 issue
-   - PR 合并后切回 `main`。
-   - 拉取最新 `main`。
-   - 再从最新 `main` 创建下一个 issue 分支。
+   - PR 合并后切回 `develop`。
+   - 拉取最新 `develop`。
+   - 再从最新 `develop` 创建下一个 issue 分支。
+
+   示例：
+
+   ```bash
+   git switch develop
+   git pull --ff-only origin develop
+   git switch -c feature/4-right-option-event-tap
+   ```
 
 ## 标签约定
 
