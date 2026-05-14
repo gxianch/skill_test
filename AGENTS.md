@@ -22,5 +22,6 @@ Issue 使用 GitHub Issues 跟踪，仓库为 `gxianch/skill_test`。见 `docs/a
 ## 开发流程
 
 - 实现 GitHub Issue 时遵循 `docs/process/issue-workflow.md`。
-- 默认一个 issue 一条分支；完成当前 issue 的提交、推送和 PR 后，再从最新 `main` 开始下一个 issue。
+- 本仓库使用 Git Flow / `develop` 模式：功能分支从最新 `develop` 创建，PR 合回 `develop`。
+- 默认一个 issue 一条分支；完成当前 issue 的提交、推送和 PR 后，再从最新 `develop` 开始下一个 issue。
 - 使用 TDD 时按纵向切片推进：一条行为测试进入 RED，再写最小实现进入 GREEN，循环到验收标准满足。
